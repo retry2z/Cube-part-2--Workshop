@@ -1,29 +1,35 @@
-const Cube = require('../models/Cube');
-const Repository = require('./Repository');
-const db = new Repository();
-
+const Product = require('../models/Cube');
 
 const cube = {
-    add(input) {
-        const { name, description, imageUrl, difficultyLevel } = input;
-        const data = new Cube(name, description, imageUrl, difficultyLevel);
-        return db.post(data);
+    async  add(input) {
+        try {
+            const data = new Product(input);
+            return await data.save();
+        }
+        catch (err) {
+            console.error(err);
+        }
     },
 
-    remove(id) {
-        return db.delete(id);
+    async remove(id) {
+        // return db.delete(id);
     },
 
-    list() {
-        return db.get();
+    async list() {
+        try {
+            return await Product.find().lean();
+        }
+        catch (err) {
+            console.error(err);
+        }
     },
 
-    details(id) {
-        return db.get(id);
+    async  details(id) {
+        // return db.get(id);
     },
 
-    edit(id, data) {
-        return db.put(id, data);
+    async  edit(id, data) {
+        // return db.put(id, data);
     },
 }
 

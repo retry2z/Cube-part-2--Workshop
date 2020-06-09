@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const cubeSchema = new mongoose.Schema({
+const accessoriesSchema = new mongoose.Schema({
     id: {
         type: mongoose.Schema.Types.ObjectId,
     },
@@ -17,17 +17,9 @@ const cubeSchema = new mongoose.Schema({
         required: true,
         maxlength: 2000,
     },
-    difficultyLevel: {
-        type: Number,
-        required: true,
-        min: 1,
-        max: 10,
-
-
-    },
     accessories: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Accessories',
+        ref: 'Cubes',
     },
     // author: {
     //     type: mongoose.Schema.Types.ObjectId,
@@ -35,4 +27,4 @@ const cubeSchema = new mongoose.Schema({
     // },
 });
 
-module.exports = mongoose.model('Cubes', cubeSchema);
+module.exports = mongoose.model('Accessories', accessoriesSchema);
