@@ -1,0 +1,21 @@
+{
+    "name": "Cube",
+    "description": "Basic ExpressJS",
+    "authors": "retry2z",
+    "version": "1.0.0",
+    "main": "pathToMain",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon --inspect index.js"
+    },
+    "dependencies": {
+        "dotenv": "^8.2.0",
+        "express": "^4.17.1",
+        "express-handlebars": "^3.1.0",
+        "mongoose": "^5.9.18",
+        "uuid": "^8.1.0"
+    },
+    "devDependencies": {
+        "nodemon": "^1.19.2"
+    }
+}
