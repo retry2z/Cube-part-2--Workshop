@@ -3,11 +3,13 @@ const router = express.Router();
 const cube = require('../controllers/cube');
 
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
+
+    console.log(await cube.list());
     res.render(
         'index',
         {
-            cubes: cube.list()
+            cubes: await cube.list()
         }
     );
 });

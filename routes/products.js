@@ -5,14 +5,19 @@ const cube = require('../controllers/cube');
 
 //CREATE
 
-router.get('/create', (req, res) => {
-    res.render('create');
+router.get('/create',  (req, res) => {
+    res.render('productCreate');
 });
 
 
-router.post('/create', async (req, res) => {
-    await cube.add(req.body);
-    console.log(req.body);
+router.post('/create', (req, res) => {
+    try {
+        cube.add(req.body);
+    }
+    catch (err) {
+        console.err(err);
+    }
+
     res.redirect('/');
 });
 

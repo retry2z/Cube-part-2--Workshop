@@ -1,10 +1,30 @@
 const mongoose = require('mongoose');
 
 const accessoriesSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    imageUrl: { type: String, required: true },
-    description: { type: String, required: true },
-    difficulty: { type: Number },
+    id: {
+        type: mongoose.Schema.Types.ObjectId,
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    imageUrl: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true,
+        maxlength: 2000,
+    },
+    accessories: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Cubes',
+    },
+    // author: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'User'
+    // },
 });
 
 module.exports = mongoose.model('Accessories', accessoriesSchema);
