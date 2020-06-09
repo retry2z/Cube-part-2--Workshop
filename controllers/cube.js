@@ -12,7 +12,12 @@ const cube = {
     },
 
     async remove(id) {
-        // return db.delete(id);
+        try {
+            return await Product.deleteOne({ _id: id });
+        }
+        catch (err) {
+            console.error(err);
+        }
     },
 
     async list() {
@@ -25,11 +30,21 @@ const cube = {
     },
 
     async  details(id) {
-        // return db.get(id);
+        try {
+            return await Product.findById(id).lean();
+        }
+        catch (err) {
+            console.error(err);
+        }
     },
 
     async  edit(id, data) {
-        // return db.put(id, data);
+        try {
+            return await Product.updateOne({ _id: id }, data);
+        }
+        catch (err) {
+            console.error(err);
+        }
     },
 }
 

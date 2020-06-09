@@ -5,7 +5,7 @@ const cube = require('../controllers/cube');
 
 //CREATE
 
-router.get('/create',  (req, res) => {
+router.get('/create', (req, res) => {
     res.render('productCreate');
 });
 
@@ -33,11 +33,11 @@ router.get('/list', (req, res) => {
 
 //DETAILS
 
-router.get('/details/:id', (req, res) => {
+router.get('/details/:id', async (req, res) => {
     res.render(
-        'details',
+        'productDetails',
         {
-            cube: cube.details(req.params.id)
+            cube: await cube.details(req.params.id)
         }
     )
 });

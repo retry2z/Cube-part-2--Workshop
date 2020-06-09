@@ -4,8 +4,6 @@ const cube = require('../controllers/cube');
 
 
 router.get('/', async (req, res) => {
-
-    console.log(await cube.list());
     res.render(
         'index',
         {
