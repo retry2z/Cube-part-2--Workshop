@@ -1,28 +1,11 @@
+const mongoose = require('mongoose');
 
+const cubeSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    imageUrl: { type: String, required: true },
+    description: { type: String, required: true },
+    difficulty: { type: Number },
 
-class Cube {
-    constructor(name, description, imageUrl, difficulty) {
-        this._name = name;
-        this._description = description;
-        this._imageUrl = imageUrl;
-        this._difficulty = difficulty;
-    }
+});
 
-    set _name(input) {
-        this.name = input;
-    }
-
-    set _description(input) {
-        this.description = input;
-    }
-
-    set _imageUrl(input) {
-        this.imageUrl = input;
-    }
-
-    set _difficulty(input) {
-        this.difficulty = input;
-    }
-}
-
-module.exports = Cube;
+module.exports = mongoose.model('Cubes', cubeSchema);
