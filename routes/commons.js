@@ -7,6 +7,10 @@ router.get('/', async (req, res) => {
     await commonController.home.get(req, res);
 });
 
+router.post('/', async (req, res) => {
+    await commonController.home.post(req, res);
+});
+
 router.get('/about', async (req, res) => {
     await commonController.about.get(req, res);
 });

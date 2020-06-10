@@ -20,8 +20,22 @@ module.exports = {
         },
 
         async post(request, response) {
+            console.log(request.body);
+            const list = await cube.list();
 
+
+            const temp = list.filter();
+
+            response.render(
+                'index',
+                {
+                    cubes: list
+                }
+            );
+
+            return true
         }
+
     },
 
     about: {
