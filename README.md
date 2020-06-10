@@ -4,16 +4,6 @@
 ![GitHub stars](https://img.shields.io/github/stars/retry2z/ExpressJS-API?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/retry2z/ExpressJS-API?style=social)
 
-Basic local REST API server for Causes-workshop.
--ExpressJS
--JWT
--Mongoose
--MongoDB
-
-
-
-Additional line of information text about what the project does. Your introduction should be around 2 or 3 sentences. Don't go overboard, people won't read it.
-
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
@@ -21,21 +11,24 @@ Before you begin, ensure you have met the following requirements:
 * You have a Windows, Linux or Mac machine. State which OS is supported/which is not.
 * You have read https://docs.npmjs.com/.
 
-## Installing ExpressJS-API
+## Installing
 
-To install ExpressJS-API, follow these steps:
+To install follow these steps:
 
 Windows, Linux and macOS:
 ```
 npm install
+```
 
 ## Documentation & Examples
-```
-https://documenter.getpostman.com/view/10051196/SztJzPxF
+
 ```
 
-## Contributing to ExpressJS-API
-To contribute to ExpressJS-API, follow these steps:
+```
+
+## Contributing to ExpressJS-API\
+
+To contribute to follow these steps:
 
 1. Fork this repository.
 2. Create a branch: `git checkout -b <branch_name>`.
