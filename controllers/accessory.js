@@ -1,9 +1,9 @@
-const Cubes = require('../models/Cube');
+const Accessories = require('../models/Accessories');
 
-const cube = {
+const accessory = {
     async  add(input) {
         try {
-            const data = new Cubes(input);
+            const data = new Accessories(input);
             return await data.save();
         }
         catch (err) {
@@ -13,7 +13,7 @@ const cube = {
 
     async remove(id) {
         try {
-            return await Cubes.deleteOne({ _id: id });
+            return await Accessories.deleteOne({ _id: id });
         }
         catch (err) {
             console.error(err);
@@ -22,7 +22,7 @@ const cube = {
 
     async list() {
         try {
-            return await Cubes.find().lean();
+            return await Accessories.find().lean();
         }
         catch (err) {
             console.error(err);
@@ -31,7 +31,7 @@ const cube = {
 
     async  details(id) {
         try {
-            return await Cubes.findById(id).populate('accessory').lean();
+            return await Accessories.findById(id).populate('accessory').lean();
         }
         catch (err) {
             console.error(err);
@@ -40,7 +40,7 @@ const cube = {
 
     async edit(id, data) {
         try {
-            return await Cubes.updateOne({ _id: id }, { $addToSet: { accessory: data } });
+            return await Accessories.updateOne({ _id: id }, { $addToSet: { accessory: data } });
         }
         catch (err) {
             console.error(err);
@@ -48,4 +48,4 @@ const cube = {
     },
 }
 
-module.exports = cube;
+module.exports = accessory;

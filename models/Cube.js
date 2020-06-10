@@ -25,10 +25,10 @@ const cubeSchema = new mongoose.Schema({
 
 
     },
-    accessories: {
-        type: mongoose.Schema.Types.ObjectId,
+    accessory: [{
+        type: mongoose.Schema.ObjectId,
         ref: 'Accessories',
-    },
+    }],
     // author: {
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: 'User'

@@ -17,10 +17,10 @@ const accessoriesSchema = new mongoose.Schema({
         required: true,
         maxlength: 2000,
     },
-    accessories: {
-        type: mongoose.Schema.Types.ObjectId,
+    cubes: [{
+        type: mongoose.Schema.ObjectId,
         ref: 'Cubes',
-    },
+    }],
     // author: {
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: 'User'
