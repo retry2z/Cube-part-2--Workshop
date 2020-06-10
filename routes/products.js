@@ -59,8 +59,7 @@ router.get('/attach/accessory/:id', async (req, res) => {
 
 
 router.post('/attach/accessory/:id', async (req, res) => {
-
-
+    await accessoryController.attach.post(req, res);
     res.redirect('/');
 });
 
