@@ -1,4 +1,5 @@
 const cube = require('../controllers/cube-service');
+const search = require('../shared/search');
 
 module.exports = {
     home: {
@@ -20,16 +21,12 @@ module.exports = {
         },
 
         async post(request, response) {
-            console.log(request.body);
             const list = await cube.list();
-
-
-            const temp = list.filter();
 
             response.render(
                 'index',
                 {
-                    cubes: list
+                    cubes: search(list, request.body)
                 }
             );
 
