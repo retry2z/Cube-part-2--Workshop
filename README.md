@@ -24,7 +24,7 @@ npm install
 
 ```
 
-## Contributing to ExpressJS-API\
+## Contributing
 
 To contribute to follow these steps:
 
