@@ -81,8 +81,6 @@ router.get('/list', async (req, res) => {
 
 router.get('/details/:id', async (req, res) => {
     const cubeDetails = await cube.details(req.params.id);
-
-    console.log(cubeDetails);
     res.render(
         'productDetails',
         {
