@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const cube = require('../controllers/cube');
+const cube = require('../controllers/cube-service');
 
 
 router.get('/', async (req, res) => {

@@ -1,68 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const cube = require('../controllers/cube');
-const accessory = require('../controllers/accessory');
-
+const cubeController = require('../controllers/cube-controller');
+const accessoryController = require('../controllers/accessory-controller');
 
 
 //CREATE
 
-router.get('/create', (req, res) => {
-    res.render('productCreate');
+router.get('/create', async (req, res) => {
+    await cubeController.create.get(req, res);
 });
 
 
 router.post('/create', async (req, res) => {
-    try {
-        await cube.add(req.body);
-    }
-    catch (err) {
-        console.err(err);
-    }
-
-    res.redirect('/');
-});
-
-// ACCESSORIES
-
-router.get('/create/accessory', async (req, res) => {
-    res.render('accessoryCreate');
-});
-
-router.post('/create/accessory', async (req, res) => {
-    try {
-        await accessory.add(req.body);
-    }
-    catch (err) {
-        console.err(err);
-    }
-
-    res.redirect('/');
-});
-
-
-router.get('/attach/accessory/:id', async (req, res) => {
-    const cubeDetail = await cube.details(req.params.id);
-    const accessories = await accessory.list();
-    res.render(
-        'accessoryAttach',
-        {
-            cube: cubeDetail,
-            accessories,
-            isFullAttached: cubeDetail.accessory.length === accessories.length
-        }
-    );
-});
-
-
-router.post('/attach/accessory/:id', async (req, res) => {
-    try {
-        await accessory.details(req.body)
-    }
-    catch (err) {
-        console.err(err);
-    }
-
+    await cubeController.create.post(req, res);
     res.redirect('/');
 });
 
@@ -70,30 +20,17 @@ router.post('/attach/accessory/:id', async (req, res) => {
 //LIST
 
 router.get('/list', async (req, res) => {
-    res.render('index',
-        {
-            cube: await cube.list()
-        }
-    )
+    await cubeController.list.get(req, res);
 });
 
 //DETAILS
 
 router.get('/details/:id', async (req, res) => {
-    const cubeDetails = await cube.details(req.params.id);
-    res.render(
-        'productDetails',
-        {
-            cube: cubeDetails,
-            accessories: cubeDetails.accessory,
-        }
-    )
+    await cubeController.details.get(req, res);
 });
 
 router.post('/details/:id', async (req, res) => {
-    await cube.edit(req.params.id, req.body.accessory);
-    await accessory.edit(req.body.accessory, req.params.id);
-
+    await cubeController.details.post(req, res);
     res.redirect(`/cubic/details/${req.params.id}`);
 });
 
@@ -101,6 +38,30 @@ router.post('/details/:id', async (req, res) => {
 
 router.delete('/remove/:id', (req, res) => {
     console.log('works');
+});
+
+
+// ACCESSORIES
+
+router.get('/create/accessory', async (req, res) => {
+    await accessoryController.create.get(req, res);
+});
+
+router.post('/create/accessory', async (req, res) => {
+    await accessoryController.create.post(req, res);
+    res.redirect('/');
+});
+
+
+router.get('/attach/accessory/:id', async (req, res) => {
+    await accessoryController.attach.get(req, res);
+});
+
+
+router.post('/attach/accessory/:id', async (req, res) => {
+
+
+    res.redirect('/');
 });
 
 
