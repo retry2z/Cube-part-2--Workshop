@@ -11,7 +11,7 @@ const config = {
         expressActiveRoutes: {
             common: {
                 status: true,
-                name: '/',
+                name: '',
             },
             auth: {
                 status: true,

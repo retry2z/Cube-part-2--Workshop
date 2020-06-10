@@ -1,28 +1,22 @@
 const express = require('express');
 const router = express.Router();
-const cube = require('../controllers/cube');
+const commonController = require('../controllers/common-controller');
 
 
 router.get('/', async (req, res) => {
-    res.render(
-        'index',
-        {
-            cubes: await cube.list()
-        }
-    );
+    await commonController.home.get(req, res);
 });
 
-router.get('/about', (req, res) => {
-    res.render(
-        'about',
-        {
-
-        }
-    );
+router.post('/', async (req, res) => {
+    await commonController.home.post(req, res);
 });
 
-router.get('*', (req, res) => {
-    res.render('404');
+router.get('/about', async (req, res) => {
+    await commonController.about.get(req, res);
+});
+
+router.get('*', async (req, res) => {
+    await commonController.notFound.get(req, res);
 });
 
 

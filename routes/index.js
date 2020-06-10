@@ -10,6 +10,7 @@ const routes = (app, activeRoutes) => {
     product.status ? app.use(`/${product.name}`, productsRoute) : false;
     user.status ? app.use(`/${user.name}`, userRoute) : false;
     common.status ? app.use(`/${common.name}`, commonsRoute) : false;
+
 };
 
 module.exports = routes;
