@@ -16,6 +16,8 @@ To install follow these steps:
 Windows, Linux and macOS:
 ```
 npm install
+
+npm start
 ```
 
 ## Documentation & Examples
