@@ -5,7 +5,7 @@ const routes = require('../routes/index');
 
 module.exports = (app, config) => {
     app.use(express.json());
-    app.use(express.urlencoded({ extended: true }))
+    app.use(express.urlencoded({ extended: true }));
     app.use('/static', express.static('static'));
 
     app.engine('.hbs', handlebars({
