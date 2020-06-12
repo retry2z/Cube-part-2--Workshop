@@ -1,12 +1,10 @@
-const { urlencoded } = require("express");
-
 const user = {
-    isLogged: true,
+    isLogged: false,
 };
 
-module.exports = function (app) {
-    app.use(this.route, (req, res, next) => {
-        if (user.isLogged === this.data.isLogged) {
+module.exports = (app, route, data) => {
+    app.use(route, (req, res, next) => {
+        if (user.isLogged === data.isLogged) {
             return next()
         }
 

@@ -7,33 +7,29 @@ const authGuard = require('../shared/authGuard');
 const routes = [
     {
         active: authGuard,
-        data: {
-            isLogged: true,
-        },
         route: '/auth',
         module: authRoute,
+        data: {
+            isLogged: false,
+        },
     },
     {
         active: authGuard,
-        data: {
-            isLogged: true,
-        },
         route: '/cubic',
         module: productsRoute,
-    },
-    {
-        active: authGuard,
         data: {
             isLogged: true,
         },
+    },
+    {
+        active: authGuard,
         route: '/customer',
         module: userRoute,
-    },
-    {
-        active: authGuard,
         data: {
             isLogged: true,
         },
+    },
+    {
         route: '/',
         module: commonsRoute,
     },
@@ -42,9 +38,9 @@ const routes = [
 
 module.exports = (app) => {
     for (const path of routes) {
-        const { route, module } = path;
+        const { route, module, data } = path;
 
-        path.active ? path.active(app) : false
+        path.active ? path.active(app, route, data) : false
         app.use(route, module);
     }
 };
