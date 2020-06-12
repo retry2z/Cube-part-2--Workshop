@@ -1,11 +1,16 @@
-const routesConfig = require('../config/config').expressActiveRoutes;
+const { urlencoded } = require("express");
 
+const user = {
+    isLogged: true,
+};
 
-const authGuard = (request, response, next) => {
-    const root = '/' + request.url.split('/');
+module.exports = function (app) {
+    app.use(this.route, (req, res, next) => {
+        if (user.isLogged === this.data.isLogged) {
+            return next()
+        }
 
-    console.log(request);
-    next();
+        return false
+    });
 }
 
-module.exports = authGuard;

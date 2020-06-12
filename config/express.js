@@ -2,12 +2,10 @@ const express = require('express');
 const handlebars = require('express-handlebars');
 const path = require('path');
 const routes = require('../routes/index');
-const authGuard = require('../shared/authGuard');
 
 module.exports = (app, config) => {
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
-    app.use(authGuard);
     app.use('/static', express.static('static'));
 
     app.engine('.hbs', handlebars({
