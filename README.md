@@ -2,6 +2,13 @@
 ![GitHub stars](https://img.shields.io/github/stars/retry2z/ExpressJS-API?style=social)
 ![GitHub forks](https://img.shields.io/github/forks/retry2z/ExpressJS-API?style=social)
 
+## Features
+
+- Dynamic routing managing
+- Route guarding
+- Mongoose
+
+
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
