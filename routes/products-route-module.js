@@ -43,25 +43,4 @@ router.delete('/remove/:id', (req, res) => {
 
 // ACCESSORIES
 
-router.get('/create/accessory', async (req, res) => {
-    await accessoryController.create.get(req, res);
-});
-
-router.post('/create/accessory', async (req, res) => {
-    await accessoryController.create.post(req, res);
-    res.redirect('/');
-});
-
-
-router.get('/attach/accessory/:id', async (req, res) => {
-    await accessoryController.attach.get(req, res);
-});
-
-
-router.post('/attach/accessory/:id', async (req, res) => {
-    await accessoryController.attach.post(req, res);
-    res.redirect('/');
-});
-
-
 module.exports = router;

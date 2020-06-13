@@ -1,5 +1,5 @@
 const user = {
-    isLogged: false,
+    isLogged: true,
 };
 
 module.exports = (app, route, data) => {
