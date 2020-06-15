@@ -1,4 +1,4 @@
 const Cubes = require('../models/Cube');
 const Repository = require('../models/Repository');
 
-module.exports = new Repository(Cubes, 'accessory');
+module.exports = new Repository(Cubes);

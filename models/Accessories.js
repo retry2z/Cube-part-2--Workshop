@@ -21,10 +21,10 @@ const accessoriesSchema = new mongoose.Schema({
         type: mongoose.Schema.ObjectId,
         ref: 'Cubes',
     }],
-    // author: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'User'
-    // },
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
 });
 
 module.exports = mongoose.model('Accessories', accessoriesSchema);

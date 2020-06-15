@@ -4,7 +4,7 @@ class Repository {
         this.relationship = relationship;
     }
 
-    async  add(data) {
+    async add(data) {
         try {
             const product = new this.collection(data);
             return await product.save();
@@ -32,7 +32,7 @@ class Repository {
         }
     }
 
-    async  details(id) {
+    async details(id) {
         try {
             return await this.collection.findById(id).populate(this.relationship).lean();
         }
@@ -41,9 +41,9 @@ class Repository {
         }
     }
 
-    async edit(id, data) {
+    async edit(id, relationship, data) {
         try {
-            return await this.collection.updateOne({ _id: id }, { $addToSet: { [this.relationship]: data } });
+            return await this.collection.updateOne({ _id: id }, { $addToSet: { [relationship]: data } });
         }
         catch (err) {
             console.error(err);
