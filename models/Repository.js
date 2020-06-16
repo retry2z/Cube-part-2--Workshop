@@ -41,7 +41,16 @@ class Repository {
         }
     }
 
-    async edit(id, relationship, data) {
+    async edit(id, data) {
+        try {
+            return await this.collection.updateOne({ _id: id }, data);
+        }
+        catch (err) {
+            console.error(err);
+        }
+    }
+
+    async update(id, relationship, data) {
         try {
             return await this.collection.updateOne({ _id: id }, { $addToSet: { [relationship]: data } });
         }

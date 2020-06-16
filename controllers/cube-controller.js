@@ -40,8 +40,8 @@ module.exports = {
         },
         async post(request, response) {
             try {
-                await cube.edit(request.params.id, 'accessory', request.body.accessory);
-                await accessory.edit(request.body.accessory, request.params.id);
+                await cube.update(request.params.id, 'accessory', request.body.accessory);
+                await accessory.update(request.body.accessory, request.params.id);
             }
             catch (err) {
                 console.error(err);

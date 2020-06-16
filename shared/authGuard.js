@@ -1,14 +1,12 @@
-const user = {
-    isLogged: true,
-};
-
 module.exports = (app, route, data) => {
-    app.use(route, (req, res, next) => {
-        if (user.isLogged === data.isLogged) {
+    app.use(route, (request, response, next) => {
+        console.log(request.user);
+
+        if (!!request.user === data.isLogged) {
             return next()
         }
 
-        return false
+        return response.redirect('/')
     });
 }
 

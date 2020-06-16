@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const cubeSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
     id: {
         type: mongoose.Schema.Types.ObjectId,
     },
@@ -16,7 +16,7 @@ const cubeSchema = new mongoose.Schema({
         unique: true
     },
     password: {
-        type: Number,
+        type: String,
         required: true,
     },
     accessories: [{
@@ -29,4 +29,4 @@ const cubeSchema = new mongoose.Schema({
     }],
 });
 
-module.exports = mongoose.model('Cubes', cubeSchema);
+module.exports = mongoose.model('Users', userSchema);
