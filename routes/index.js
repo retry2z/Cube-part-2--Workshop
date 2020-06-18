@@ -33,7 +33,7 @@ const routes = [
     },
     {
         active: authGuard,
-        route: '/customer',
+        route: '/user',
         module: userRoute,
         data: {
             isLogged: true,

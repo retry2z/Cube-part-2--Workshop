@@ -8,8 +8,13 @@ router.get('/login', async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
-    await authController.login.post(req, res);
-   // res.redirect('/');
+    const token = await authController.login.post(req, res);
+    res.cookie(config.authCookie, token, {
+        httpOnly: true,
+        signed: true,
+        maxAge: 900000,
+    });
+    res.redirect('/');
 });
 
 router.get('/register', async (req, res) => {
@@ -18,7 +23,11 @@ router.get('/register', async (req, res) => {
 
 router.post('/register', async (req, res) => {
     const token = await authController.register.post(req, res);
-    res.cookie(config.authCookie, token);
+    res.cookie(config.authCookie, token, {
+        httpOnly: true,
+        signed: true,
+        maxAge: 900000,
+    });
     res.redirect('/');
 });
 

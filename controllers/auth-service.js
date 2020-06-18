@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
 const authenticate = async (request, response, next) => {
-    const cookie = request.cookies[config.authCookie] || false;
+    const cookie = request.signedCookies[config.authCookie] || false;
 
     if (!cookie || !!request.user) {
         return next();
@@ -33,9 +33,8 @@ const authService = {
             const salt = await bcrypt.genSalt(10);
             const hashPassword = await bcrypt.hash(password, salt);
             const customer = await new user({ email, password: hashPassword }).save();
-            const token = await jwt.sign({ uid: customer._id }, config.secretToken);
 
-            return token
+            return await jwt.sign({ uid: customer._id }, config.secretToken, { expiresIn: '1h' });
         }
         catch (err) {
             console.error(err);
@@ -47,11 +46,11 @@ const authService = {
 
         try {
             const tmp = await user.findOne({ email });
-
             const verified = await bcrypt.compare(password, tmp.password);
 
             if (verified) {
-                return await jwt.sign({ uid: tmp._id }, config.secretToken);
+                return await jwt.sign({ uid: tmp._id }, config.secretToken, { expiresIn: '1h' });
+                
             } else {
                 console.error('Email or password dont match');
             }
