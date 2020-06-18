@@ -4,7 +4,9 @@ module.exports = {
     // Create new user
     register: {
         async get(request, response) {
-            response.render('authRegister');
+            response.render('authRegister', {
+                user: request.user,
+            });
             return true
         },
         async post(request, response) {
@@ -22,7 +24,9 @@ module.exports = {
     // Login user 
     login: {
         async get(request, response) {
-            response.render('authLogin');
+            response.render('authLogin', {
+                user: request.user,
+            });
             return true
         },
         async post(request, response) {

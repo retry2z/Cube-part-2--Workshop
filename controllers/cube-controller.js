@@ -5,7 +5,9 @@ module.exports = {
     // Create new cube
     create: {
         async get(request, response) {
-            response.render('productCreate');
+            response.render('productCreate', {
+                user: request.user,
+            });
             return true
         },
         async post(request, response) {
@@ -30,6 +32,7 @@ module.exports = {
                     {
                         cube: cubeDetails,
                         accessories: cubeDetails.accessory,
+                        user: request.user,
                     }
                 );
             }
