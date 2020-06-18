@@ -9,7 +9,8 @@ module.exports = {
                 response.render(
                     'index',
                     {
-                        cubes: list
+                        cubes: list,
+                        user: request.user,
                     }
                 );
             }
@@ -26,7 +27,8 @@ module.exports = {
             response.render(
                 'index',
                 {
-                    cubes: search(list, request.body)
+                    cubes: search(list, request.body),
+                    user: request.user,
                 }
             );
 
@@ -37,7 +39,9 @@ module.exports = {
 
     about: {
         async get(request, response) {
-            await response.render('about');
+            await response.render('about', {
+                user: request.user,
+            });
 
             return true
         }
@@ -45,7 +49,9 @@ module.exports = {
 
     notFound: {
         async get(request, response) {
-            response.render('404');
+            response.render('404', {
+                user: request.user,
+            });
 
             return true
         }

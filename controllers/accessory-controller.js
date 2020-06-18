@@ -6,7 +6,10 @@ module.exports = {
 
     create: {
         async get(request, response) {
-            await response.render('accessoryCreate');
+            await response.render('accessoryCreate',
+                {
+                    user: request.user,
+                });
             return true
         },
         async post(request, response) {
@@ -33,6 +36,7 @@ module.exports = {
                 response.render(
                     'accessoryAttach',
                     {
+                        user: request.user,
                         cube: cubeDetail,
                         accessories,
                         isFullAttached: cubeDetail.accessory.length === accessories.length
@@ -42,7 +46,7 @@ module.exports = {
             catch (err) {
                 console.error(err);
             }
-            
+
             return true
         },
         async post(request, response) {
