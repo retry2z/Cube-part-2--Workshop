@@ -2,21 +2,24 @@ const config = require('../config/config');
 const user = require('../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+const UserManagement = require('../models/UserManagement');
 
 const authenticate = async (request, response, next) => {
     const cookie = request.signedCookies[config.authCookie] || false;
 
-    if (!cookie || !!request.user) {
+    if (!cookie) {
         return next();
     }
 
-    const verified = jwt.verify(cookie, config.secretToken);
-    const tmp = await user.findById(verified.uid);
-    request.user = {
-        uid: tmp._id,
-        name: tmp.name || '',
-        imageUrl: tmp.imageUrl || '',
+    try {
+        const verified = jwt.verify(cookie, config.secretToken);
+        const tmp = await user.findById(verified.uid);
+        request.user = new UserManagement(tmp);
     }
+    catch (err) {
+        console.error(err);
+    }
+
     return next();
 };
 
@@ -34,7 +37,7 @@ const authService = {
             const hashPassword = await bcrypt.hash(password, salt);
             const customer = await new user({ email, password: hashPassword }).save();
 
-            return await jwt.sign({ uid: customer._id }, config.secretToken, { expiresIn: '1h' });
+            return await jwt.sign({ uid: customer._id }, config.secretToken);
         }
         catch (err) {
             console.error(err);
@@ -50,7 +53,7 @@ const authService = {
 
             if (verified) {
                 return await jwt.sign({ uid: tmp._id }, config.secretToken, { expiresIn: '1h' });
-                
+
             } else {
                 console.error('Email or password dont match');
             }

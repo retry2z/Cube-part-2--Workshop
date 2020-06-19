@@ -14,7 +14,8 @@ module.exports = {
         },
         async post(request, response) {
             try {
-                await accessory.add(request.body);
+                const item = await accessory.add(request.body);
+                await request.user.update('accessories', item._id);
             }
             catch (err) {
                 console.error(err);
@@ -60,9 +61,4 @@ module.exports = {
             return true
         }
     }
-    // <--------------------
-
-
-
-
 };

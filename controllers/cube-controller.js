@@ -1,6 +1,7 @@
 const cube = require('../controllers/cube-service');
 const accessory = require('../controllers/accessory-service');
 
+
 module.exports = {
     // Create new cube
     create: {
@@ -12,7 +13,8 @@ module.exports = {
         },
         async post(request, response) {
             try {
-                await cube.add(request.body);
+                const item = await cube.add({ ...request.body, author: request.user.uid });
+                await request.user.update('cubes', item._id);
             }
             catch (err) {
                 console.error(err);
@@ -31,8 +33,9 @@ module.exports = {
                     'productDetails',
                     {
                         cube: cubeDetails,
-                        accessories: cubeDetails.accessory,
+                        accessories: cubeDetails.accessory || false,
                         user: request.user,
+                        owner: cubeDetails.author.toString() === request.user.uid.toString(),
                     }
                 );
             }
