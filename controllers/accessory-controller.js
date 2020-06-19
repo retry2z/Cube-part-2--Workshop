@@ -3,7 +3,6 @@ const accessoryService = require('../controllers/accessory-service');
 
 module.exports = {
     //Create new accessory
-
     create: {
         async get(request, response) {
             await response.render('accessoryCreate',
@@ -27,7 +26,6 @@ module.exports = {
     // <--------------------
 
     //Attach accessory to cube
-
     attach: {
         async get(request, response) {
             try {
