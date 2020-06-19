@@ -1,5 +1,6 @@
 const cubeService = require('../controllers/cube-service');
 const accessoryService = require('../controllers/accessory-service');
+const { list } = require('../controllers/cube-service');
 
 module.exports = {
     //Create new accessory
@@ -31,13 +32,22 @@ module.exports = {
             try {
                 const cubeDetail = await cubeService.details(request.params.id);
                 const accessories = await accessoryService.list() || [];
+                const list = accessories.filter(x => {
+                    const temp = JSON.stringify(cubeDetail.accessories);
+                    const item = x._id.toString();
+                    if (!temp.includes(item)) {
+                        return true
+                    }
+
+                    return false
+                });
 
                 response.render(
                     'accessoryAttach',
                     {
                         user: request.user,
                         cube: cubeDetail,
-                        accessories,
+                        accessories: list,
                         isFullAttached: cubeDetail.accessories.length === accessories.length
                     }
                 );
