@@ -5,8 +5,9 @@
 ## Features
 
 - Dynamic routing managing
-- Route guarding
+- Route guarding a different approach.
 - Mongoose
+- Auth service - JWT & bcrypt
 
 
 ## Prerequisites
