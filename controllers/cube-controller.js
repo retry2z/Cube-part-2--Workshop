@@ -1,4 +1,6 @@
 const cube = require('../controllers/cube-service');
+const accessoryService = require('../controllers/accessory-service');
+
 
 module.exports = {
     // Create new cube
@@ -26,7 +28,7 @@ module.exports = {
     details: {
         async get(request, response) {
             try {
-                const cubeDetails = await cube.details(request.params.id);
+                const cubeDetails = await cube.details(request.params.id, 'accessories');
                 const accessories = cubeDetails.accessories || false;
                 response.render(
                     'productDetails',
