@@ -1,6 +1,4 @@
 const cube = require('../controllers/cube-service');
-const accessory = require('../controllers/accessory-service');
-
 
 module.exports = {
     // Create new cube
@@ -29,25 +27,16 @@ module.exports = {
         async get(request, response) {
             try {
                 const cubeDetails = await cube.details(request.params.id);
+                const accessories = cubeDetails.accessories || false;
                 response.render(
                     'productDetails',
                     {
                         cube: cubeDetails,
-                        accessories: cubeDetails.accessory || false,
+                        accessories: accessories,
                         user: request.user,
                         owner: cubeDetails.author.toString() === request.user.uid.toString(),
                     }
                 );
-            }
-            catch (err) {
-                console.error(err);
-            }
-            return true
-        },
-        async post(request, response) {
-            try {
-                await cube.update(request.params.id, 'accessory', request.body.accessory);
-                await accessory.update(request.body.accessory, request.params.id);
             }
             catch (err) {
                 console.error(err);
@@ -58,7 +47,6 @@ module.exports = {
     // <-----------------
 
     // List all cubes
-
     list: {
         async get(request, response) {
             try {
@@ -74,8 +62,68 @@ module.exports = {
             }
             return true;
         },
-    }
+    },
+    // <-----------------
+
+    // Edit cube data
+    edit: {
+        async get(request, response) {
+            try {
+                const cubeDetails = await cube.details(request.params.id);
+                response.render(
+                    'productEdit',
+                    {
+                        cube: cubeDetails,
+                        user: request.user,
+                    }
+                );
+            }
+            catch (err) {
+                console.error(err);
+            }
+            return true
+        },
+        async post(request, response) {
+            try {
+                await cube.edit(request.params.id, request.body);
+            }
+            catch (err) {
+                console.error(err);
+            }
+            return true
+        }
+    },
+    // <-----------------
 
 
-
+    //Delete cube from db
+    delete: {
+        async get(request, response) {
+            try {
+                const cubeDetails = await cube.details(request.params.id);
+                response.render(
+                    'productDelete',
+                    {
+                        cube: cubeDetails,
+                        user: request.user,
+                    }
+                );
+            }
+            catch (err) {
+                console.error(err);
+            }
+            return true
+        },
+        async post(request, response) {
+            try {
+                await cube.remove(request.params.id);
+                await request.user.pull('cubes', request.params.id);
+            }
+            catch (err) {
+                console.error(err);
+            }
+            return true
+        }
+    },
+    // <-----------------
 };

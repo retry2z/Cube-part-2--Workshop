@@ -36,8 +36,24 @@ router.post('/details/:id', async (req, res) => {
 
 //REMOVE
 
-router.delete('/remove/:id', (req, res) => {
-    console.log('works');
+router.get('/delete/:id', async (req, res) => {
+    await cubeController.delete.get(req, res);
+});
+
+router.post('/delete/:id', async (req, res) => {
+    await cubeController.delete.post(req, res);
+    res.redirect('/');
+});
+
+//EDIT
+
+router.get('/edit/:id', async (req, res) => {
+    await cubeController.edit.get(req, res);
+});
+
+router.post('/edit/:id', async (req, res) => {
+    await cubeController.edit.post(req, res);
+    res.redirect(`/cubic/details/${req.params.id}`);
 });
 
 module.exports = router;

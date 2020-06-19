@@ -20,7 +20,7 @@ router.get('/attach/:id', async (req, res) => {
 
 router.post('/attach/:id', async (req, res) => {
     await accessoryController.attach.post(req, res);
-    res.redirect('/');
+    res.redirect(`/cubic/details/${req.params.id}`);
 });
 
 module.exports = router;

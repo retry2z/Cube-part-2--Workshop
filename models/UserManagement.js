@@ -27,6 +27,9 @@ class UserManagement {
         }
     }
 
+    async pull(relationship, data) {
+        return await this.collection.updateOne({ _id: this.uid }, { $pull: { [relationship]: data } });
+    }
 
     async details() {
         try {
@@ -38,7 +41,7 @@ class UserManagement {
     }
 
     async edit(data) {
-        try {
+        try {np
             return await this.collection.updateOne({ _id: this.uid }, data);
         }
         catch (err) {
