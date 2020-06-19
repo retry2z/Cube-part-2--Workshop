@@ -1,7 +1,6 @@
 class Repository {
-    constructor(collection, relationship) {
+    constructor(collection) {
         this.collection = collection;
-        this.relationship = relationship;
     }
 
     async add(data) {
@@ -32,9 +31,9 @@ class Repository {
         }
     }
 
-    async details(id) {
+    async details(id, relationship) {
         try {
-            return await this.collection.findById(id).populate(this.relationship).lean();
+            return await this.collection.findById(id).populate(relationship).lean();
         }
         catch (err) {
             console.error(err);
