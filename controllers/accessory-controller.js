@@ -1,9 +1,8 @@
-const cube = require('../controllers/cube-service');
-const accessory = require('../controllers/accessory-service');
+const cubeService = require('../controllers/cube-service');
+const accessoryService = require('../controllers/accessory-service');
 
 module.exports = {
     //Create new accessory
-
     create: {
         async get(request, response) {
             await response.render('accessoryCreate',
@@ -14,7 +13,8 @@ module.exports = {
         },
         async post(request, response) {
             try {
-                await accessory.add(request.body);
+                const item = await accessoryService.add(request.body);
+                await request.user.update('accessories', item._id);
             }
             catch (err) {
                 console.error(err);
@@ -26,12 +26,11 @@ module.exports = {
     // <--------------------
 
     //Attach accessory to cube
-
     attach: {
         async get(request, response) {
             try {
-                const cubeDetail = await cube.details(request.params.id);
-                const accessories = await accessory.list();
+                const cubeDetail = await cubeService.details(request.params.id);
+                const accessories = await accessoryService.list() || [];
 
                 response.render(
                     'accessoryAttach',
@@ -39,7 +38,7 @@ module.exports = {
                         user: request.user,
                         cube: cubeDetail,
                         accessories,
-                        isFullAttached: cubeDetail.accessory.length === accessories.length
+                        isFullAttached: cubeDetail.accessories.length === accessories.length
                     }
                 );
             }
@@ -51,18 +50,13 @@ module.exports = {
         },
         async post(request, response) {
             try {
-                await accessory.details(request.body)
+                await cubeService.update(request.params.id, 'accessories', request.body.accessory);
+                await accessoryService.update(request.body.accessory, 'cubes', request.params.id);
             }
             catch (err) {
                 console.error(err);
             }
-
             return true
         }
     }
-    // <--------------------
-
-
-
-
 };

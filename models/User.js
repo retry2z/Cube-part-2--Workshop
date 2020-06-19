@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
-    id: {
-        type: mongoose.Schema.Types.ObjectId,
-    },
     name: {
         type: String,
     },
@@ -21,12 +18,12 @@ const userSchema = new mongoose.Schema({
     },
     accessories: [{
         type: mongoose.Schema.ObjectId,
-        ref: 'Accessories',
+        ref: 'accessories',
     }],
     cubes: [{
         type: mongoose.Schema.ObjectId,
-        ref: 'Cubes',
+        ref: 'cubes',
     }],
 });
 
-module.exports = mongoose.model('Users', userSchema);
+module.exports = mongoose.model('users', userSchema);
