@@ -7,7 +7,8 @@
 - Dynamic routing managing
 - Route guarding a different approach.
 - Mongoose
-- Auth service - JWT & bcrypt
+- Auth service - JWT & bcrypt 
+- Default login - guest@example.com / 12345678
 
 
 ## Prerequisites
