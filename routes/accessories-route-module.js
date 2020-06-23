@@ -8,8 +8,10 @@ router.get('/create', async (req, res) => {
 });
 
 router.post('/create', async (req, res) => {
-    await accessoryController.create.post(req, res);
-    res.redirect('/');
+    const status = await accessoryController.create.post(req, res);
+    if (status) {
+        res.redirect('/');
+    }
 });
 
 

@@ -19,7 +19,7 @@ module.exports = class Accessory {
             throw new TypeError('Name must be between 5 and 20 characters long');
         }
 
-        const pattern = /^[a-zA-Z]+$/g;
+        const pattern = /^[a-zA-Z\s]+$/g;
         if (pattern.test(data)) {
             this.name = data;
         } else {
@@ -42,7 +42,7 @@ module.exports = class Accessory {
             throw new TypeError('Description must be at least 20 characters long');
         }
 
-        const pattern = /^[a-zA-Z0-9]+$/g;
+        const pattern = /^[a-zA-Z0-9\s]+$/g;
         if (pattern.test(data)) {
             this.description = data;
         } else {

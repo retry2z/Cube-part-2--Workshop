@@ -1,27 +1,32 @@
 const cubeService = require('../controllers/cube-service');
 const accessoryService = require('../controllers/accessory-service');
-const { list } = require('../controllers/cube-service');
+const Accessory = require('../models/validation/Accessory-validation');
 
 module.exports = {
     //Create new accessory
     create: {
         async get(request, response) {
-            await response.render('accessoryCreate',
+            return await response.render('accessoryCreate',
                 {
                     user: request.user,
-                });
-            return true
+                }
+            );
         },
         async post(request, response) {
             try {
-                const item = await accessoryService.add(request.body);
-                await request.user.update('accessories', item._id);
+                const item = new Accessory(request.body);
+                const tmp = await accessoryService.add(item);
+                await request.user.update('accessories', tmp._id);
+                return true
             }
             catch (err) {
-                console.error(err);
+                return await response.render('accessoryCreate',
+                    {
+                        user: request.user,
+                        error: err.message,
+                    }
+                );
             }
-
-            return true
         }
     },
     // <--------------------
@@ -69,5 +74,5 @@ module.exports = {
             return true
         }
     }
-    
+
 };
