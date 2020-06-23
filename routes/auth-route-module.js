@@ -9,6 +9,10 @@ router.get('/login', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     const token = await authController.login.post(req, res);
+
+    if (!token) {
+        return console.error('Something went wrong');
+    }
     res.cookie(config.authCookie, token, {
         httpOnly: true,
         signed: true,
@@ -23,6 +27,10 @@ router.get('/register', async (req, res) => {
 
 router.post('/register', async (req, res) => {
     const token = await authController.register.post(req, res);
+
+    if (!token) {
+        return console.error('Something went wrong');
+    }
     res.cookie(config.authCookie, token, {
         httpOnly: true,
         signed: true,

@@ -9,7 +9,7 @@ module.exports = (arr, data) => {
         const to_data = +data.to || Number.MAX_SAFE_INTEGER;
 
         if ((difficulty >= from_data && difficulty <= to_data) &&
-            (name.includes(search_data) || description.includes(search_data))) {
+            (name.includes(search_data))) {
             return item
         } else {
             return false

@@ -4,19 +4,20 @@ module.exports = {
     // Create new user
     register: {
         async get(request, response) {
-            response.render('authRegister', {
+            return response.render('authRegister', {
                 user: request.user,
             });
-            return true
         },
+
         async post(request, response) {
             try {
                 return await authService.register(request.body);
             }
             catch (err) {
-                console.error(err);
+                return response.render('authRegister', {
+                    error: err.message,
+                });
             }
-            return true
         }
     },
     // <-----------------
@@ -24,19 +25,20 @@ module.exports = {
     // Login user 
     login: {
         async get(request, response) {
-            response.render('authLogin', {
+            return response.render('authLogin', {
                 user: request.user,
             });
-            return true
         },
+
         async post(request, response) {
             try {
                 return await authService.login(request.body);
             }
             catch (err) {
-                console.error(err);
+                return response.render('authLogin', {
+                    error: err.message,
+                });
             }
-            return true
         }
     },
     // <-----------------

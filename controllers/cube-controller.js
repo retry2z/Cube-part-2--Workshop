@@ -1,25 +1,27 @@
-const cube = require('../controllers/cube-service');
-const accessoryService = require('../controllers/accessory-service');
-
+const cubeService = require('../controllers/cube-service');
+const Cube = require('../models/validation/Cube-validation');
 
 module.exports = {
     // Create new cube
     create: {
         async get(request, response) {
-            response.render('productCreate', {
+            return response.render('productCreate', {
                 user: request.user,
             });
-            return true
         },
         async post(request, response) {
             try {
-                const item = await cube.add({ ...request.body, author: request.user.uid });
-                await request.user.update('cubes', item._id);
+                const item = new Cube(request.body);
+                const tmp = await cubeService.add({ ...item, author: request.user.uid });
+                await request.user.update('cubes', tmp._id);
+                return true
             }
             catch (err) {
-                console.error(err);
+                response.render('productCreate', {
+                    user: request.user,
+                    error: err.message
+                });
             }
-            return true
         }
     },
     // <-----------------
@@ -28,7 +30,7 @@ module.exports = {
     details: {
         async get(request, response) {
             try {
-                const cubeDetails = await cube.details(request.params.id, 'accessories');
+                const cubeDetails = await cubeService.details(request.params.id, 'accessories');
                 const accessories = cubeDetails.accessories || false;
                 response.render(
                     'productDetails',
@@ -52,7 +54,7 @@ module.exports = {
     list: {
         async get(request, response) {
             try {
-                const list = await cube.list();
+                const list = await cubeService.list();
                 response.render('index',
                     {
                         cube: list
@@ -71,7 +73,7 @@ module.exports = {
     edit: {
         async get(request, response) {
             try {
-                const cubeDetails = await cube.details(request.params.id);
+                const cubeDetails = await cubeService.details(request.params.id);
                 response.render(
                     'productEdit',
                     {
@@ -87,7 +89,7 @@ module.exports = {
         },
         async post(request, response) {
             try {
-                await cube.edit(request.params.id, request.body);
+                await cubeService.edit(request.params.id, request.body);
             }
             catch (err) {
                 console.error(err);
@@ -102,7 +104,7 @@ module.exports = {
     delete: {
         async get(request, response) {
             try {
-                const cubeDetails = await cube.details(request.params.id);
+                const cubeDetails = await cubeService.details(request.params.id);
                 response.render(
                     'productDelete',
                     {
@@ -118,7 +120,7 @@ module.exports = {
         },
         async post(request, response) {
             try {
-                await cube.remove(request.params.id);
+                await cubeService.remove(request.params.id);
                 await request.user.pull('cubes', request.params.id);
             }
             catch (err) {
