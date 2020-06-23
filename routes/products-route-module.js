@@ -10,8 +10,10 @@ router.get('/create', async (req, res) => {
 
 
 router.post('/create', async (req, res) => {
-    await cubeController.create.post(req, res);
-    res.redirect('/');
+    const status = await cubeController.create.post(req, res);
+    if (status) {
+        res.redirect('/');
+    }
 });
 
 
@@ -29,8 +31,11 @@ router.get('/details/:id', async (req, res) => {
 });
 
 router.post('/details/:id', async (req, res) => {
-    await cubeController.details.post(req, res);
-    res.redirect(`/cubic/details/${req.params.id}`);
+    const status = await cubeController.details.post(req, res);
+
+    if (status) {
+        res.redirect(`/cubic/details/${req.params.id}`);
+    }
 });
 
 
@@ -52,8 +57,11 @@ router.get('/edit/:id', async (req, res) => {
 });
 
 router.post('/edit/:id', async (req, res) => {
-    await cubeController.edit.post(req, res);
-    res.redirect(`/cubic/details/${req.params.id}`);
+    const status = await cubeController.edit.post(req, res);
+
+    if (status) {
+        res.redirect(`/cubic/details/${req.params.id}`);
+    }
 });
 
 module.exports = router;
