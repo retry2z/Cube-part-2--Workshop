@@ -5,9 +5,10 @@ module.exports = {
     // Create new cube
     create: {
         async get(request, response) {
-            return response.render('productCreate', {
+            response.render('productCreate', {
                 user: request.user,
             });
+            return true
         },
         async post(request, response) {
             try {
@@ -21,6 +22,7 @@ module.exports = {
                     user: request.user,
                     error: err.message
                 });
+                return false
             }
         }
     },
@@ -32,20 +34,23 @@ module.exports = {
             try {
                 const cubeDetails = await cubeService.details(request.params.id, 'accessories');
                 const accessories = cubeDetails.accessories || false;
+                const owner = cubeDetails.author.toString() === request.user.uid.toString();
+
                 response.render(
                     'productDetails',
                     {
                         cube: cubeDetails,
                         accessories: accessories,
                         user: request.user,
-                        owner: cubeDetails.author.toString() === request.user.uid.toString(),
+                        owner,
                     }
                 );
+                return true
             }
             catch (err) {
                 console.error(err);
+                return false
             }
-            return true
         }
     },
     // <-----------------
@@ -74,6 +79,12 @@ module.exports = {
         async get(request, response) {
             try {
                 const cubeDetails = await cubeService.details(request.params.id);
+                const owner = cubeDetails.author.toString() === request.user.uid.toString();
+
+                if (!owner) {
+                    return false
+                }
+
                 response.render(
                     'productEdit',
                     {
@@ -81,20 +92,29 @@ module.exports = {
                         user: request.user,
                     }
                 );
+                return true
             }
             catch (err) {
                 console.error(err);
+                return false
             }
-            return true
         },
         async post(request, response) {
             try {
+                const cubeDetails = await cubeService.details(request.params.id);
+                const owner = cubeDetails.author.toString() === request.user.uid.toString();
+
+                if (!owner) {
+                    return false
+                }
+
                 await cubeService.edit(request.params.id, request.body);
+                return true
             }
             catch (err) {
                 console.error(err);
+                return false
             }
-            return true
         }
     },
     // <-----------------
@@ -105,6 +125,12 @@ module.exports = {
         async get(request, response) {
             try {
                 const cubeDetails = await cubeService.details(request.params.id);
+                const owner = cubeDetails.author.toString() === request.user.uid.toString();
+
+                if (!owner) {
+                    return false
+                }
+
                 response.render(
                     'productDelete',
                     {
@@ -112,21 +138,31 @@ module.exports = {
                         user: request.user,
                     }
                 );
+                return true
+
             }
             catch (err) {
                 console.error(err);
+                return false
             }
-            return true
         },
         async post(request, response) {
             try {
+                const cubeDetails = await cubeService.details(request.params.id);
+                const owner = cubeDetails.author.toString() === request.user.uid.toString();
+
+                if (!owner) {
+                    return false
+                }
+
                 await cubeService.remove(request.params.id);
                 await request.user.pull('cubes', request.params.id);
+                return true
             }
             catch (err) {
                 console.error(err);
+                return false
             }
-            return true
         }
     },
     // <-----------------
