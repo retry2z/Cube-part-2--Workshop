@@ -1,6 +1,6 @@
-![GitHub repo size](https://img.shields.io/github/repo-size/retry2z/ExpressJS-API)
-![GitHub stars](https://img.shields.io/github/stars/retry2z/ExpressJS-API?style=social)
-![GitHub forks](https://img.shields.io/github/forks/retry2z/ExpressJS-API?style=social)
+![GitHub repo size](https://img.shields.io/github/repo-size/retry2z/Cubes-Workshop)
+![GitHub stars](https://img.shields.io/github/stars/retry2z/Cubes-Workshop?style=social)
+![GitHub forks](https://img.shields.io/github/forks/retry2z/Cubes-Workshop?style=social)
 
 ## Description
 
