@@ -31,7 +31,7 @@ Windows, Linux and macOS:
 npm install
 ```
 
-Create or customize `.env` file before run `npm start` to start local the server.
+Create `.env` file or configurate config.js before run `npm start` to start local the server.
 
 
 ## Contributing
